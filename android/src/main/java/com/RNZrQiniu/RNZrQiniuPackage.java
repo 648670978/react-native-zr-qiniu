@@ -1,5 +1,5 @@
 
-package com.reactlibrary;
+package com.RNZrQiniu;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,4 +25,7 @@ public class RNZrQiniuPackage implements ReactPackage {
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
       return Collections.emptyList();
     }
+
+
+    
 }
