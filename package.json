@@ -1,0 +1,17 @@
+
+{
+  "name": "react-native-zr-qiniu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": "zr <zr_ars@163.com>",
+  "license": "MIT",
+  "peerDependencies": {
+  }
+}
