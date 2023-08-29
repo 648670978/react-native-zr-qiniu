@@ -4,12 +4,15 @@ import {
 const { RNZrQiniu } = NativeModules;
 
 
-export function upload(token,path, callback) {
-    RNZrQiniu && RNZrQiniu.upload(token,path, (isSuccess,res)=>{
-        if (Platform.OS === 'android' && isSuccess) {
-            callback(isSuccess,JSON.parse(res))
-        } else {
-            callback(isSuccess,res)
-        }
-    });
+export function upload(token,path) {
+    return new Promise((resolve, reject) => {
+        path = path.replace("file://", "");
+        RNZrQiniu && RNZrQiniu.upload(token,path, (isSuccess,res)=>{
+            if (Platform.OS === 'android' && isSuccess) {
+                resolve({isSuccess,data:JSON.parse(res)})
+            } else {
+                resolve({isSuccess,data:res})
+            }
+        });
+    })
 }

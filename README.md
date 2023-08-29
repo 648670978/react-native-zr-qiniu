@@ -7,9 +7,9 @@
 
 ## Usage
 ```javascript
-import {RNZrQiniu} from 'react-native-zr-qiniu';
+import {upload} from 'react-native-zr-qiniu';
 
-RNZrQiniu.upload(path,(isSuccess,res)=>{
+upload(token,path).then(({isSuccess,data})=>{
 
 })
 ```
