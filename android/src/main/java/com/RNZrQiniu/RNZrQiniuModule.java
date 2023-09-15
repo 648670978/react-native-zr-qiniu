@@ -35,7 +35,7 @@ public class RNZrQiniuModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void upload(String token, String filePath, Callback callback) {
+  public void upload(String token, String filePath,String folder, Callback callback) {
     File file = new File(filePath);
     if (!file.exists()) {
       callback.invoke(false, "文件不存在");
@@ -47,7 +47,9 @@ public class RNZrQiniuModule extends ReactContextBaseJavaModule {
     String dateString = formatter.format(new Date());
     // String key = String.format("%s-%s-%d.%s", dateString, fileName, (int) (Math.random() * 1000), fileExt);
     String key = String.format("%s-%s-%d", dateString, fileName, (int) (Math.random() * 1000));
-
+    if (folder != null && !folder.isEmpty()) {
+      key = folder + "/" + key;
+    }
     uploadManager.put(file, key, token,
             new UpCompletionHandler() {
               @Override

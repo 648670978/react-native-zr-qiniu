@@ -1,7 +1,7 @@
 
 {
   "name": "react-native-zr-qiniu",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "桥接原生七牛",
   "main": "index.js",
   "scripts": {

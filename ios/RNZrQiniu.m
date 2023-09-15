@@ -15,7 +15,7 @@
 
 RCT_EXPORT_MODULE(RNZrQiniu)
 
-RCT_EXPORT_METHOD(upload:(NSString *)token filePath:(NSString *)path callback:(RCTResponseSenderBlock)callback) {
+RCT_EXPORT_METHOD(upload:(NSString *)token filePath:(NSString *)path folder:(NSString *)folder callback:(RCTResponseSenderBlock)callback) {
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
     NSData *data = [NSData dataWithContentsOfFile:path];
     if (!data) {
@@ -29,7 +29,11 @@ RCT_EXPORT_METHOD(upload:(NSString *)token filePath:(NSString *)path callback:(R
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     int randomNum = arc4random_uniform(UINT32_MAX);
     NSString *key = [NSString stringWithFormat:@"%@-%@-%u", dateString, fileName, randomNum];
-
+    
+    if (folder && ![folder isEqualToString:@""]) {
+        key = [NSString stringWithFormat:@"%@/%@",folder, key];
+    }
+    
     [upManager putData:data key:key token:token
     complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         if (info.ok) {
