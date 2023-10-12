@@ -2,6 +2,12 @@
 #import "RNZrQiniu.h"
 #import <QiniuSDK.h>
 
+@interface RNZrQiniu ()
+
+@property (nonatomic,strong) QNUploadManager *upManager;
+
+@end
+
 @implementation RNZrQiniu
 
 - (dispatch_queue_t)methodQueue
@@ -15,8 +21,16 @@
 
 RCT_EXPORT_MODULE(RNZrQiniu)
 
+RCT_EXPORT_METHOD(initQiniu) {
+    _upManager = [[QNUploadManager alloc] init];
+}
+
 RCT_EXPORT_METHOD(upload:(NSString *)token filePath:(NSString *)path folder:(NSString *)folder callback:(RCTResponseSenderBlock)callback) {
-    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+    if (!_upManager) {
+        callback(@[@NO, @{@"message": @"未初始化"}]);
+        return;
+    }
+    
     NSData *data = [NSData dataWithContentsOfFile:path];
     if (!data) {
         callback(@[@NO, @{@"message": @"文件不存在"}]);
@@ -34,7 +48,7 @@ RCT_EXPORT_METHOD(upload:(NSString *)token filePath:(NSString *)path folder:(NSS
         key = [NSString stringWithFormat:@"%@/%@",folder, key];
     }
     
-    [upManager putData:data key:key token:token
+    [_upManager putData:data key:key token:token
     complete: ^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
         if (info.ok) {
                 callback(@[@YES, resp]);

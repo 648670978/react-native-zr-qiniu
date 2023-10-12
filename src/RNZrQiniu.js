@@ -3,6 +3,9 @@ import {
 } from 'react-native';
 const { RNZrQiniu } = NativeModules;
 
+export function initQiniu() {
+    RNZrQiniu && RNZrQiniu.init()
+}
 
 export function upload(token,path,folder) {
     return new Promise((resolve, reject) => {

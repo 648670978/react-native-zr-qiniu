@@ -26,7 +26,6 @@ public class RNZrQiniuModule extends ReactContextBaseJavaModule {
   public RNZrQiniuModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
-    uploadManager = new UploadManager();
   }
 
   @Override
@@ -35,7 +34,16 @@ public class RNZrQiniuModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void initQiniu() {
+    uploadManager = new UploadManager();
+  }
+
+  @ReactMethod
   public void upload(String token, String filePath,String folder, Callback callback) {
+    if (uploadManager == null) {
+      callback.invoke(false, "未初始化");
+      return;
+    }
     File file = new File(filePath);
     if (!file.exists()) {
       callback.invoke(false, "文件不存在");
