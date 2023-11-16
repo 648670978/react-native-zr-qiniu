@@ -4,7 +4,7 @@ import {
 const { RNZrQiniu } = NativeModules;
 
 export function initQiniu() {
-    RNZrQiniu && RNZrQiniu.init()
+    RNZrQiniu && RNZrQiniu.initQiniu()
 }
 
 export function upload(token,path,folder) {
