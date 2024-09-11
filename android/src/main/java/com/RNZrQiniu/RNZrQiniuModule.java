@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
+import com.qiniu.android.storage.GlobalConfiguration;
 import com.qiniu.android.storage.UpCompletionHandler;
 import com.qiniu.android.storage.UploadManager;
 
@@ -36,6 +37,7 @@ public class RNZrQiniuModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void initQiniu() {
     uploadManager = new UploadManager();
+    GlobalConfiguration.getInstance().isDnsOpen = false;
   }
 
   @ReactMethod
